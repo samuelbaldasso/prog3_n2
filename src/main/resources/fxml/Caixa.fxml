@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.CaixaController">
+    <children>
+        <Pane minHeight="155.0" minWidth="225.0" prefHeight="288.0" prefWidth="305.0">
+            <children>
+                <Button fx:id="BtnFechar" layoutX="187.0" layoutY="36.0" mnemonicParsing="false" onAction="#BtnFecharAction" prefHeight="36.0" prefWidth="92.0" text="Fechar Caixa" />
+            <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data do caixa" />
+            <TextField fx:id="TxtData" layoutX="97.0" layoutY="100.0" prefHeight="25.0" prefWidth="112.0" />
+            <Text layoutX="14.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrada" />
+            <TextField fx:id="TxtEntrada" disable="true" editable="false" layoutX="65.0" layoutY="140.0" prefHeight="25.0" prefWidth="112.0" />
+            <Text layoutX="14.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saída" />
+            <TextField fx:id="TxtSaida" disable="true" editable="false" layoutX="65.0" layoutY="179.0" prefHeight="25.0" prefWidth="112.0" />
+            <Text layoutX="15.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
+            <TextField fx:id="TxtTotal" disable="true" editable="false" layoutX="65.0" layoutY="224.0" prefHeight="25.0" prefWidth="112.0" />
+            <Button fx:id="BtnCancelar" layoutX="40.0" layoutY="36.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
+            </children>
+        </Pane>
+    </children>
+</HBox>

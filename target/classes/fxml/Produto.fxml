@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.ProdutoController">
+    <children>
+        <Pane minHeight="356.0" minWidth="225.0" prefHeight="356.0" prefWidth="225.0">
+            <children>
+                <ListView fx:id="LstProdutos" layoutX="7.0" layoutY="22.0" onKeyPressed="#LstProdutos_KeyPressed" onMouseClicked="#LstProdutos_MouseClicked" prefHeight="287.0" prefWidth="198.0" />
+                <Button fx:id="BtnIncluir" layoutX="7.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" text="Incluir" />
+                <Button fx:id="BtnExcluir" layoutX="155.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnExcluir_Action" text="Excluir" />
+                <Button fx:id="BtnAlterar" layoutX="80.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnAlterar_Action" text="Alterar" />
+            </children>
+        </Pane>
+        <Pane minHeight="356.0" minWidth="316.0" prefHeight="365.0" prefWidth="383.0">
+            <children>
+                <Button fx:id="BtnGravar" disable="true" layoutX="246.0" layoutY="233.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="92.0" text="Gravar" />
+                <Button fx:id="BtnCancelar" disable="true" layoutX="31.0" layoutY="233.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
+                <TextField fx:id="TxtNome" disable="true" layoutX="103.0" layoutY="30.0" prefHeight="25.0" prefWidth="262.0" />
+            <TextField fx:id="TxtEstoque" disable="true" editable="false" layoutX="103.0" layoutY="72.0" prefHeight="25.0" prefWidth="67.0" />
+            <TextField fx:id="TxtId" disable="true" editable="false" layoutX="103.0" layoutY="110.0" prefHeight="25.0" prefWidth="67.0" />
+                <Label layoutX="10.0" layoutY="34.0" text="Nome" />
+            <Label layoutX="10.0" layoutY="76.0" text="Estoque" />
+            <Label layoutX="10.0" layoutY="114.0" text="Código Produto" />
+            </children>
+        </Pane>
+    </children>
+</HBox>

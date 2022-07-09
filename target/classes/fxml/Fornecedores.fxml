@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.FornecedorController">
+    <children>
+        <Pane minHeight="356.0" minWidth="225.0" prefHeight="356.0" prefWidth="225.0">
+            <children>
+                <ListView fx:id="LstFornecedores" layoutX="7.0" layoutY="22.0" onKeyPressed="#LstFornecedores_KeyPressed" onMouseClicked="#LstFornecedores_MouseClicked" prefHeight="287.0" prefWidth="204.0" />
+                <Button fx:id="BtnIncluir" layoutX="7.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" text="Incluir" />
+                <Button fx:id="BtnExcluir" layoutX="161.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnExcluir_Action" text="Excluir" />
+                <Button fx:id="BtnAlterar" layoutX="83.0" layoutY="316.0" mnemonicParsing="false" onAction="#BtnAlterar_Action" text="Alterar" />
+            </children>
+        </Pane>
+        <Pane minHeight="356.0" minWidth="316.0" prefHeight="365.0" prefWidth="397.0">
+            <children>
+                <TextField fx:id="TxtCnpj" disable="true" layoutX="78.0" layoutY="71.0" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label layoutX="14.0" layoutY="34.0" text="Nome" />
+                <Button fx:id="BtnGravar" disable="true" layoutX="248.0" layoutY="165.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="92.0" text="Gravar" />
+                <Label layoutX="14.0" layoutY="75.0" text="CNPJ" />
+                <Button fx:id="BtnCancelar" disable="true" layoutX="78.0" layoutY="165.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
+                <TextField fx:id="TxtNome" disable="true" layoutX="78.0" layoutY="30.0" prefHeight="25.0" prefWidth="262.0" />
+            </children>
+        </Pane>
+    </children>
+</HBox>

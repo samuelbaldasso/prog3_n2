@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.CompraController">
+    <children>
+        <Pane minHeight="356.0" minWidth="225.0" prefHeight="493.0" prefWidth="728.0">
+            <children>
+                <Button fx:id="BtnCancelar" disable="true" layoutX="375.0" layoutY="443.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
+                <TextField fx:id="TxtTotal" disable="true" editable="false" layoutX="449.0" layoutY="412.0" prefHeight="25.0" prefWidth="116.0" />
+                <Button fx:id="BtnIncluir" layoutX="14.0" layoutY="171.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" prefHeight="36.0" prefWidth="92.0" text="Incluir" />
+                <Text layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produto" />
+                <Text layoutX="11.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
+                <TextField fx:id="TxtQtd" layoutX="91.0" layoutY="85.0" prefHeight="25.0" prefWidth="92.0" />
+                <Text layoutX="11.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor" />
+                <TextField fx:id="TxtValor" layoutX="91.0" layoutY="138.0" prefHeight="25.0" prefWidth="92.0" />
+                <Text layoutX="375.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" wrappingWidth="27.66796875" />
+                <Text layoutX="375.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fornecedor" />
+                <ComboBox fx:id="CboUsuario" disable="true" layoutX="447.0" layoutY="369.0" prefHeight="25.0" prefWidth="270.0" />
+                <ComboBox fx:id="CboProduto" layoutX="91.0" layoutY="35.0" prefHeight="25.0" prefWidth="277.0" />
+                <ListView fx:id="LstItemCompra" layoutX="375.0" layoutY="4.0" prefHeight="358.0" prefWidth="343.0" />
+                <Button fx:id="BtnGravar" disable="true" layoutX="622.0" layoutY="443.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="92.0" text="Comprar" />
+                </children>
+        </Pane>
+    </children>
+</HBox>

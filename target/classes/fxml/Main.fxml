@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefHeight="310.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.MainController">
+   <children>
+        <Button fx:id="BtnClientes" layoutX="29.0" layoutY="122.0" onAction="#BtnClientes_Action" prefHeight="67.0" prefWidth="173.0" text="Clientes" />
+      <Button fx:id="BtnFornecedores" layoutX="225.0" layoutY="122.0" mnemonicParsing="false" onAction="#BtnFornecedores_Action" prefHeight="67.0" prefWidth="173.0" text="Fornecedores" />
+      <Button fx:id="BtnProdutos" layoutX="225.0" layoutY="25.0" mnemonicParsing="false" onAction="#BtnProdutos_Action" prefHeight="67.0" prefWidth="173.0" text="Produtos" />
+      <Button fx:id="BtnVenda" layoutX="225.0" layoutY="214.0" onAction="#BtnVenda_Action" prefHeight="67.0" prefWidth="173.0" text="Venda" />
+      <Button fx:id="BtnCompra" layoutX="29.0" layoutY="214.0" onAction="#BtnCompra_Action" prefHeight="67.0" prefWidth="173.0" text="Compra" />
+      <Button fx:id="BtnCaixa" layoutX="29.0" layoutY="25.0" onAction="#BtnCaixa_Action" prefHeight="67.0" prefWidth="173.0" text="Fechar Caixa" />
+   </children>
+</Pane>
