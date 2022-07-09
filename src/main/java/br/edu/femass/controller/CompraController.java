@@ -6,7 +6,7 @@ import br.edu.femass.dao.ProdutoDao;
 import br.edu.femass.model.Compra;
 import br.edu.femass.model.Fornecedor;
 import br.edu.femass.model.ItemCompra;
-import br.edu.femass.model.Produto;
+import br.edu.femass.model.Tenis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,7 +38,7 @@ public class CompraController implements Initializable {
     private Button BtnGravar;
 
     @FXML
-    private ComboBox<Produto> CboProduto;
+    private ComboBox<Tenis> CboProduto;
 
     @FXML
     private ComboBox<Fornecedor> CboUsuario;
@@ -68,7 +68,7 @@ public class CompraController implements Initializable {
     @FXML
     private void BtnIncluir_Action(ActionEvent evento) {
         ItemCompra itemCompra = new ItemCompra();
-        itemCompra.setProduto(CboProduto.getValue());
+        itemCompra.setTenis(CboProduto.getValue());
         itemCompra.setQtd(Integer.parseInt(TxtQtd.getText()));
         itemCompra.setPrecoCompra(Float.parseFloat(TxtValor.getText()));
 
@@ -122,20 +122,20 @@ public class CompraController implements Initializable {
     }
 
     private void atualizarLista() {
-        List <Produto> produtos;
+        List <Tenis> tenis;
         List <Fornecedor> fornecedores;
 
         try {
             fornecedores = fornecedorDao.listar();
-            produtos = produtoDao.listar();
+            tenis = produtoDao.listar();
         } catch (Exception e) {
-            produtos = new ArrayList<>();
+            tenis = new ArrayList<>();
             fornecedores = new ArrayList<>();
         }
 
-        ObservableList<Produto> produtoOb = FXCollections.observableArrayList(produtos);
+        ObservableList<Tenis> tenisOb = FXCollections.observableArrayList(tenis);
         ObservableList<Fornecedor> fornecedorOb = FXCollections.observableArrayList(fornecedores);
-        CboProduto.setItems(produtoOb);
+        CboProduto.setItems(tenisOb);
         CboUsuario.setItems(fornecedorOb);
     }
 

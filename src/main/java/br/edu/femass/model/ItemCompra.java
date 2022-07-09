@@ -9,9 +9,9 @@ public class ItemCompra {
     private Long id;
     private int qtd;
     private Float PrecoCompra;
-    private Produto produto;
+    private Tenis tenis;
 
     @Override
-    public String toString() {return this.produto.getNome() + "; Preço da compra: " + this.getPrecoCompra() +
+    public String toString() {return this.tenis.getNome() + "; Preço da compra: " + this.getPrecoCompra() +
             ", quantidade: " + this.getQtd();}
 }

@@ -5,7 +5,7 @@ import br.edu.femass.dao.ProdutoDao;
 import br.edu.femass.dao.VendaDao;
 import br.edu.femass.model.Cliente;
 import br.edu.femass.model.ItemVenda;
-import br.edu.femass.model.Produto;
+import br.edu.femass.model.Tenis;
 import br.edu.femass.model.Venda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +39,7 @@ public class VendaController implements Initializable {
     private Button BtnGravar;
 
     @FXML
-    private ComboBox<Produto> CboProduto;
+    private ComboBox<Tenis> CboProduto;
 
     @FXML
     private ComboBox<Cliente> CboUsuario;
@@ -69,11 +69,11 @@ public class VendaController implements Initializable {
     @FXML
     private void BtnIncluir_Action(ActionEvent evento) {
         ItemVenda itemVenda = new ItemVenda();
-        itemVenda.setProduto(CboProduto.getValue());
+        itemVenda.setTenis(CboProduto.getValue());
         itemVenda.setQtd(Integer.parseInt(TxtQtd.getText()));
         itemVenda.setPrecoVenda(Float.parseFloat(TxtValor.getText()));
 
-        if(!itemVenda.getProduto().checkEstoque(itemVenda.getQtd())) {return;}
+        if(!itemVenda.getTenis().checkEstoque(itemVenda.getQtd())) {return;}
 
         venda.getItensVendidos().add(itemVenda);
         venda.setValorTotal(venda.getValorTotal() + (itemVenda.getPrecoVenda() * itemVenda.getQtd()));
@@ -125,20 +125,20 @@ public class VendaController implements Initializable {
     }
 
     private void atualizarLista() {
-        List <Produto> produtos;
+        List <Tenis> tenis;
         List <Cliente> clientes;
 
         try {
             clientes = clienteDao.listar();
-            produtos = produtoDao.listar();
+            tenis = produtoDao.listar();
         } catch (Exception e) {
-            produtos = new ArrayList<>();
+            tenis = new ArrayList<>();
             clientes = new ArrayList<>();
         }
 
-        ObservableList<Produto> produtoOb = FXCollections.observableArrayList(produtos);
+        ObservableList<Tenis> tenisOb = FXCollections.observableArrayList(tenis);
         ObservableList<Cliente> clienteOb = FXCollections.observableArrayList(clientes);
-        CboProduto.setItems(produtoOb);
+        CboProduto.setItems(tenisOb);
         CboUsuario.setItems(clienteOb);
     }
 

@@ -68,7 +68,7 @@ public class VendaDao extends DaoPostgres implements Dao<Venda>{
                 ps2.setInt(1, itemVendido.getQtd());
                 ps2.setFloat(2, itemVendido.getPrecoVenda());
                 ps2.setLong(3, value.getId());
-                ps2.setLong(4, itemVendido.getProduto().getId());
+                ps2.setLong(4, itemVendido.getTenis().getId());
 
                 ps2.executeUpdate();
 

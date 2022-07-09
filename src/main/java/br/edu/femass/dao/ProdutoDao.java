@@ -2,7 +2,7 @@ package br.edu.femass.dao;
 
 import br.edu.femass.model.ItemCompra;
 import br.edu.femass.model.ItemVenda;
-import br.edu.femass.model.Produto;
+import br.edu.femass.model.Tenis;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,27 +11,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoDao extends DaoPostgres implements Dao<Produto>{
+public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
     @Override
-    public List<Produto> listar() throws Exception {
+    public List<Tenis> listar() throws Exception {
         String sql = "select * from produto order by id";
         PreparedStatement ps = getPreparedStatement(sql, false);
         ResultSet rs = ps.executeQuery();
 
-        List<Produto> produtos = new ArrayList<>();
+        List<Tenis> tenis = new ArrayList<>();
 
         while (rs.next()) {
-            Produto produto = new Produto();
-            produto.setNome(rs.getString("nome"));
-            produto.setId(rs.getLong("id"));
-            produto.setEstoque(rs.getInt("estoque"));
-            produtos.add(produto);
+            Tenis tenis = new Tenis();
+            tenis.setNome(rs.getString("nome"));
+            tenis.setId(rs.getLong("id"));
+            tenis.setEstoque(rs.getInt("estoque"));
+            tenis.add(tenis);
         }
-        return produtos;
+        return tenis;
     }
 
     @Override
-    public void gravar(Produto value) throws Exception {
+    public void gravar(Tenis value) throws Exception {
         String sql = "INSERT INTO produto (nome, preco_venda, estoque) VALUES (?,?,?)";
         PreparedStatement ps = getPreparedStatement(sql, true);
         ps.setString(1, value.getNome());
@@ -47,7 +47,7 @@ public class ProdutoDao extends DaoPostgres implements Dao<Produto>{
     }
 
     @Override
-    public void alterar(Produto value) throws Exception {
+    public void alterar(Tenis value) throws Exception {
         String sql = "UPDATE produto set nome = ? where id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
         ps.setString(1, value.getNome());
@@ -59,23 +59,23 @@ public class ProdutoDao extends DaoPostgres implements Dao<Produto>{
     public void alterarProdutoVenda(ItemVenda value) throws Exception {
         String sql = "UPDATE produto SET estoque = ?, preco_venda = ? WHERE id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
-        Integer conta = value.getProduto().getEstoque() - value.getQtd();
+        Integer conta = value.getTenis().getEstoque() - value.getQtd();
         ps.setInt(1,  conta);
         ps.setFloat(2, value.getPrecoVenda());
-        ps.setLong(3, value.getProduto().getId());
+        ps.setLong(3, value.getTenis().getId());
         ps.executeUpdate();
     }
 
     public void alterarProdutoCompra(ItemCompra value) throws Exception {
         String sql = "UPDATE produto SET estoque = ? WHERE id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
-        ps.setInt(1,  (value.getProduto().getEstoque() + value.getQtd()));
-        ps.setLong(2, value.getProduto().getId());
+        ps.setInt(1,  (value.getTenis().getEstoque() + value.getQtd()));
+        ps.setLong(2, value.getTenis().getId());
         ps.executeUpdate();
     }
 
     @Override
-    public void excluir(Produto value) throws Exception {
+    public void excluir(Tenis value) throws Exception {
         Connection conexao = getConexao();
         conexao.setAutoCommit(false);
         try {

@@ -2,7 +2,7 @@ package br.edu.femass.dao;
 
 import br.edu.femass.model.Compra;
 import br.edu.femass.model.ItemCompra;
-import br.edu.femass.model.Produto;
+import br.edu.femass.model.Tenis;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
         return compras;
     }
 
-    public List<ItemCompra> listarItemCompra(Produto produto) throws Exception {
+    public List<ItemCompra> listarItemCompra(Tenis tenis) throws Exception {
         String sql = "select * from item_compra where id_produto = ?";
         PreparedStatement ps = getPreparedStatement(sql, true);
         ResultSet rs = ps.executeQuery();
@@ -41,7 +41,7 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
             itemCompra.setQtd(rs.getInt("qtd"));
             itemCompra.setId(rs.getLong("id"));
             itemCompra.setPrecoCompra(rs.getFloat("preco_compra"));
-            itemCompra.setProduto(produto);
+            itemCompra.setTenis(tenis);
 
             itemCompras.add(itemCompra);
         }
@@ -88,7 +88,7 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
                 ps2.setInt(1, itemComprado.getQtd());
                 ps2.setFloat(2, itemComprado.getPrecoCompra());
                 ps2.setLong(3, value.getId());
-                ps2.setLong(4, itemComprado.getProduto().getId());
+                ps2.setLong(4, itemComprado.getTenis().getId());
 
                 ps2.executeUpdate();
 

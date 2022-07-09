@@ -4,7 +4,7 @@ package br.edu.femass.model;
 import lombok.Data;
 
 @Data
-public class Produto {
+public class Tenis {
     private Long id;
     private String nome;
     private Float precoVenda = 0F;

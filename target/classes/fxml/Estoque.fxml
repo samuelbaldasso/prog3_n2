@@ -9,17 +9,17 @@
     <children>
         <Pane minHeight="356.0" minWidth="225.0" prefHeight="356.0" prefWidth="225.0">
             <children>
-                <ListView fx:id="LstProdutos" layoutX="7.0" layoutY="10.0" onKeyPressed="#LstProdutos_KeyPressed" onMouseClicked="#LstProdutos_MouseClicked" prefHeight="350.0" prefWidth="225.0" />
+                <ListView fx:id="LstProdutos" layoutX="8.0" layoutY="8.0" onKeyPressed="#LstProdutos_KeyPressed" onMouseClicked="#LstProdutos_MouseClicked" prefHeight="350.0" prefWidth="225.0" />
             </children>
         </Pane>
         <Pane minHeight="356.0" minWidth="316.0" prefHeight="365.0" prefWidth="383.0">
             <children>
-                <TextField fx:id="TxtNome" disable="true" editable="false" layoutX="103.0" layoutY="30.0" prefHeight="25.0" prefWidth="262.0" />
-            <TextField fx:id="TxtPreco" disable="true" editable="false" layoutX="103.0" layoutY="72.0" prefHeight="25.0" prefWidth="262.0" />
-            <TextField fx:id="TxtId" disable="true" editable="false" layoutX="103.0" layoutY="110.0" prefHeight="25.0" prefWidth="67.0" />
-                <Label layoutX="10.0" layoutY="34.0" text="Nome" />
-            <Label layoutX="10.0" layoutY="76.0" text="Preço Venda" />
-            <Label layoutX="10.0" layoutY="114.0" text="Código Produto" />
+                <TextField fx:id="TxtNome" disable="true" editable="false" layoutX="132.0" layoutY="30.0" prefHeight="31.0" prefWidth="234.0" />
+            <TextField fx:id="TxtPreco" disable="true" editable="false" layoutX="132.0" layoutY="72.0" prefHeight="31.0" prefWidth="234.0" />
+            <TextField fx:id="TxtId" disable="true" editable="false" layoutX="132.0" layoutY="110.0" prefHeight="31.0" prefWidth="234.0" />
+                <Label layoutX="21.0" layoutY="35.0" text="Nome" />
+            <Label layoutX="21.0" layoutY="77.0" text="Preço Venda" />
+            <Label layoutX="21.0" layoutY="115.0" text="Código Produto" />
             </children>
         </Pane>
     </children>

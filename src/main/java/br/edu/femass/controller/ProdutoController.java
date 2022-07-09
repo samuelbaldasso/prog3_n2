@@ -1,7 +1,7 @@
 package br.edu.femass.controller;
 
 import br.edu.femass.dao.ProdutoDao;
-import br.edu.femass.model.Produto;
+import br.edu.femass.model.Tenis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ public class ProdutoController implements Initializable {
     private final ProdutoDao produtoDao = new ProdutoDao();
 
     @FXML
-    private ListView<Produto> LstProdutos;
+    private ListView<Tenis> LstProdutos;
 
     @FXML
     private Button BtnIncluir;
@@ -64,11 +64,11 @@ public class ProdutoController implements Initializable {
     }
 
     private void exibirProduto() {
-        Produto produto = LstProdutos.getSelectionModel().getSelectedItem();
-        if (produto==null) return;
-        TxtNome.setText(produto.getNome());
-        TxtEstoque.setText(String.valueOf(produto.getEstoque()));
-        TxtId.setText(String.valueOf(produto.getId()));
+        Tenis tenis = LstProdutos.getSelectionModel().getSelectedItem();
+        if (tenis ==null) return;
+        TxtNome.setText(tenis.getNome());
+        TxtEstoque.setText(String.valueOf(tenis.getEstoque()));
+        TxtId.setText(String.valueOf(tenis.getId()));
     }
 
     @FXML
@@ -89,12 +89,12 @@ public class ProdutoController implements Initializable {
 
     @FXML
     private void BtnExcluir_Action(ActionEvent evento) {
-        Produto produto = LstProdutos.getSelectionModel().getSelectedItem();
+        Tenis tenis = LstProdutos.getSelectionModel().getSelectedItem();
 
-        if (produto==null) return;
+        if (tenis ==null) return;
 
         try {
-            produtoDao.excluir(produto);
+            produtoDao.excluir(tenis);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,9 +105,9 @@ public class ProdutoController implements Initializable {
 
     @FXML
     private void BtnAlterar_Action(ActionEvent evento){
-        Produto produto = LstProdutos.getSelectionModel().getSelectedItem();
+        Tenis tenis = LstProdutos.getSelectionModel().getSelectedItem();
 
-        if (produto==null) return;
+        if (tenis ==null) return;
         habilitarInterface(true);
         BtnGravar.setText("Alterar");
         TxtNome.requestFocus();
@@ -115,12 +115,12 @@ public class ProdutoController implements Initializable {
     }
     @FXML
     private void BtnGravar_Action(ActionEvent evento) throws Exception {
-        Produto produto = new Produto();
-        produto.setNome(TxtNome.getText());
+        Tenis tenis = new Tenis();
+        tenis.setNome(TxtNome.getText());
 
         if (Objects.equals(BtnGravar.getText(), "Gravar")) {
             try {
-                produtoDao.gravar(produto);
+                produtoDao.gravar(tenis);
             } catch (Exception e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setContentText(e.getMessage());
@@ -130,9 +130,9 @@ public class ProdutoController implements Initializable {
         }
         else {
             try {
-                produto.setId(LstProdutos.getSelectionModel().getSelectedItem().getId());
-                produto.setNome(TxtNome.getText());
-                produtoDao.alterar(produto);
+                tenis.setId(LstProdutos.getSelectionModel().getSelectedItem().getId());
+                tenis.setNome(TxtNome.getText());
+                produtoDao.alterar(tenis);
             } catch (Exception e) {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setContentText(e.getMessage());
@@ -154,13 +154,13 @@ public class ProdutoController implements Initializable {
 
     private void atualizarLista() {
         BtnGravar.setText("Gravar");
-        List<Produto> produtos;
+        List<Tenis> tenis;
         try {
-            produtos = produtoDao.listar();
+            tenis = produtoDao.listar();
         } catch (Exception e) {
-            produtos = new ArrayList<>();
+            tenis = new ArrayList<>();
         }
-        ObservableList<Produto> produtosOb = FXCollections.observableArrayList(produtos);
+        ObservableList<Tenis> produtosOb = FXCollections.observableArrayList(tenis);
         LstProdutos.setItems(produtosOb);
     }
 

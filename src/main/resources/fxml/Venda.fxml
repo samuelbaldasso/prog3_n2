@@ -5,24 +5,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.VendaController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.CompraController">
     <children>
         <Pane minHeight="356.0" minWidth="225.0" prefHeight="493.0" prefWidth="728.0">
             <children>
-                <Button fx:id="BtnCancelar" disable="true" layoutX="375.0" layoutY="443.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
-                <TextField fx:id="TxtTotal" disable="true" editable="false" layoutX="449.0" layoutY="412.0" prefHeight="25.0" prefWidth="116.0" />
-                <Button fx:id="BtnIncluir" layoutX="14.0" layoutY="171.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" prefHeight="36.0" prefWidth="92.0" text="Incluir" />
-                <Text layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produto" />
-                <Text layoutX="11.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
-                <TextField fx:id="TxtQtd" layoutX="91.0" layoutY="85.0" prefHeight="25.0" prefWidth="92.0" />
-                <Text layoutX="11.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valor" />
-                <TextField fx:id="TxtValor" layoutX="91.0" layoutY="138.0" prefHeight="25.0" prefWidth="92.0" />
-                <Text layoutX="375.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total" wrappingWidth="27.66796875" />
-                <Text layoutX="375.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente" />
-                <ComboBox fx:id="CboUsuario" disable="true" layoutX="447.0" layoutY="369.0" prefHeight="25.0" prefWidth="270.0" />
+                <Button fx:id="BtnCancelar" disable="true" layoutX="26.0" layoutY="423.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="107.0" text="CANCELAR" />
+                <TextField fx:id="TxtTotal" disable="true" editable="false" layoutX="116.0" layoutY="306.0" prefHeight="31.0" prefWidth="249.0" />
+                <Button fx:id="BtnIncluir" layoutX="11.0" layoutY="203.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" prefHeight="36.0" prefWidth="355.0" text="INCLUIR" />
+                <Text layoutX="11.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRODUTO" />
+                <Text layoutX="11.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QTD" />
+                <TextField fx:id="TxtQtd" layoutX="106.0" layoutY="80.0" prefHeight="31.0" prefWidth="260.0" />
+                <Text layoutX="11.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALOR" />
+                <TextField fx:id="TxtValor" layoutX="106.0" layoutY="133.0" prefHeight="31.0" prefWidth="260.0" />
+                <Text layoutX="14.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" wrappingWidth="53.5986328125" />
+                <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORNECEDOR" />
+                <ComboBox fx:id="CboUsuario" disable="true" layoutX="116.0" layoutY="270.0" prefHeight="31.0" prefWidth="249.0" />
                 <ComboBox fx:id="CboProduto" layoutX="91.0" layoutY="35.0" prefHeight="25.0" prefWidth="277.0" />
-                <ListView fx:id="LstItemVenda" layoutX="375.0" layoutY="4.0" prefHeight="358.0" prefWidth="343.0" />
-                <Button fx:id="BtnGravar" disable="true" layoutX="622.0" layoutY="443.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="92.0" text="Vender" />
+                <ListView fx:id="LstItemCompra" layoutX="375.0" layoutY="11.0" prefHeight="471.0" prefWidth="343.0" />
+                <Button fx:id="BtnGravar" disable="true" layoutX="150.0" layoutY="423.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="107.0" text="VENDER" />
                 </children>
         </Pane>
     </children>
