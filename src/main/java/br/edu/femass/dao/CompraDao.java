@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompraDao extends DaoPostgres implements Dao<Compra>{
+public class CompraDao extends DaoPostgres implements Dao<Compra> {
     private final ProdutoDao produtoDao = new ProdutoDao();
+
     @Override
     public List<Compra> listar() throws Exception {
         String sql = "select * from compra order by data desc";
@@ -48,7 +49,7 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
         return itemCompras;
     }
 
-    public Float consultarValor (String data) throws Exception {
+    public Float consultarValor(String data) throws Exception {
         String sql = "SELECT * FROM compra WHERE data = '" + data + "'";
 
         PreparedStatement ps = getPreparedStatement(sql, true);
@@ -61,8 +62,10 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
 
         }
 
+        System.out.println(totalComprado + rs.getFloat("valor_total"));
         return totalComprado;
     }
+
     @Override
     public void gravar(Compra value) throws Exception {
         Connection conexao = getConexao();
@@ -82,7 +85,7 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
             rs.next();
             value.setId(rs.getLong(1));
 
-            for (ItemCompra itemComprado: value.getItensComprados()) {
+            for (ItemCompra itemComprado : value.getItensComprados()) {
                 sql = "INSERT INTO item_compra (qtd, preco_compra, id_compra, id_produto) VALUES (?,?,?,?)";
                 PreparedStatement ps2 = getPreparedStatement(sql, true);
                 ps2.setInt(1, itemComprado.getQtd());
@@ -93,8 +96,11 @@ public class CompraDao extends DaoPostgres implements Dao<Compra>{
                 ps2.executeUpdate();
 
                 produtoDao.alterarProdutoCompra(itemComprado);
+
+                if (itemComprado.equals(value.getItensComprados().size())) {
+                    conexao.commit();
+                }
             }
-            conexao.commit();
         } catch (SQLException exception) {
             conexao.rollback();
             throw exception;

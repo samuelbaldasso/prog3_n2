@@ -4,17 +4,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.ClienteController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.FornecedorController">
     <children>
         <Pane minHeight="356.0" minWidth="225.0" prefHeight="356.0" prefWidth="225.0">
             <children>
-                <ListView fx:id="LstClientes" layoutX="9.0" layoutY="14.0" onKeyPressed="#LstClientes_KeyPressed" onMouseClicked="#LstClientes_MouseClicked" prefHeight="335.0" prefWidth="207.0" />
+                <ListView fx:id="LstFornecedores" layoutX="9.0" layoutY="14.0" onKeyPressed="#LstFornecedores_KeyPressed" onMouseClicked="#LstFornecedores_MouseClicked" prefHeight="335.0" prefWidth="207.0" />
             </children>
         </Pane>
         <Pane minHeight="356.0" minWidth="316.0" prefHeight="365.0" prefWidth="395.0">
             <children>
                 <Label layoutX="20.0" layoutY="36.0" text="NOME" />
-                <TextField fx:id="TxtCpf" disable="true" layoutX="78.0" layoutY="73.0" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="TxtCnpj" disable="true" layoutX="78.0" layoutY="73.0" prefHeight="25.0" prefWidth="262.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Button fx:id="BtnGravar" disable="true" layoutX="226.0" layoutY="215.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="114.0" text="GRAVAR" />
                 <Button fx:id="BtnCancelar" disable="true" layoutX="78.0" layoutY="215.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="114.0" text="CANCELAR" />
                 <TextField fx:id="TxtNome" disable="true" layoutX="78.0" layoutY="32.0" prefHeight="25.0" prefWidth="262.0" />

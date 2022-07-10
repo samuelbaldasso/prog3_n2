@@ -34,13 +34,11 @@ public class ClienteDao extends DaoPostgres implements Dao<Cliente>{
         PreparedStatement ps = getPreparedStatement(sql, true);
         ps.setString(1, value.getNome());
         ps.setString(2, value.getCpf());
-
         ps.executeUpdate();
 
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         value.setId(rs.getLong(1));
-
     }
 
     @Override

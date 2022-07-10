@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.CompraController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.VendaController">
     <children>
         <Pane minHeight="356.0" minWidth="225.0" prefHeight="493.0" prefWidth="728.0">
             <children>
@@ -18,10 +18,10 @@
                 <Text layoutX="11.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VALOR" />
                 <TextField fx:id="TxtValor" layoutX="106.0" layoutY="133.0" prefHeight="31.0" prefWidth="260.0" />
                 <Text layoutX="14.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" wrappingWidth="53.5986328125" />
-                <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORNECEDOR" />
+                <Text layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLIENTE" />
                 <ComboBox fx:id="CboUsuario" disable="true" layoutX="116.0" layoutY="270.0" prefHeight="31.0" prefWidth="249.0" />
                 <ComboBox fx:id="CboProduto" layoutX="91.0" layoutY="35.0" prefHeight="25.0" prefWidth="277.0" />
-                <ListView fx:id="LstItemCompra" layoutX="375.0" layoutY="11.0" prefHeight="471.0" prefWidth="343.0" />
+                <ListView fx:id="LstItemVenda" layoutX="375.0" layoutY="11.0" prefHeight="471.0" prefWidth="343.0" />
                 <Button fx:id="BtnGravar" disable="true" layoutX="150.0" layoutY="423.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="107.0" text="VENDER" />
                 </children>
         </Pane>

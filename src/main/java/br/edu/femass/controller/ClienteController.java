@@ -154,11 +154,11 @@ public class ClienteController implements Initializable {
 
     private void atualizarLista() {
         BtnGravar.setText("Gravar");
-        List<Cliente> clientes;
+        List<Cliente> clientes = new ArrayList<>();
         try {
             clientes = clienteDao.listar();
         } catch (Exception e) {
-            clientes = new ArrayList<>();
+            e.printStackTrace();
         }
         ObservableList<Cliente> clientesOb = FXCollections.observableArrayList(clientes);
         LstClientes.setItems(clientesOb);

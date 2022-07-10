@@ -69,6 +69,7 @@ public class CompraController implements Initializable {
     private void BtnIncluir_Action(ActionEvent evento) {
         ItemCompra itemCompra = new ItemCompra();
         itemCompra.setTenis(CboProduto.getValue());
+        compra.setFornecedor(CboUsuario.getValue());
         itemCompra.setQtd(Integer.parseInt(TxtQtd.getText()));
         itemCompra.setPrecoCompra(Float.parseFloat(TxtValor.getText()));
 
@@ -76,8 +77,8 @@ public class CompraController implements Initializable {
         compra.setValorTotal(compra.getValorTotal() + (itemCompra.getPrecoCompra() * itemCompra.getQtd()));
         TxtTotal.setText(compra.getValorTotal().toString());
 
-        List <ItemCompra> itens = compra.getItensComprados();
-        ObservableList <ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
+        List<ItemCompra> itens = compra.getItensComprados();
+        ObservableList<ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
         LstItemCompra.setItems(itenscompradosOb);
 
         atualizarLista();
@@ -87,10 +88,10 @@ public class CompraController implements Initializable {
     }
 
     @FXML
-    private void BtnGravar_Action (ActionEvent evento) throws Exception {
+    private void BtnGravar_Action(ActionEvent evento) throws Exception {
         compra.setFornecedor(CboUsuario.getValue());
 
-        try{
+        try {
             compraDao.gravar(compra);
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -100,8 +101,8 @@ public class CompraController implements Initializable {
         }
 
         compra = new Compra();
-        List <ItemCompra> itens = compra.getItensComprados();
-        ObservableList <ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
+        List<ItemCompra> itens = compra.getItensComprados();
+        ObservableList<ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
         LstItemCompra.setItems(itenscompradosOb);
 
         atualizarLista();
@@ -113,8 +114,8 @@ public class CompraController implements Initializable {
     @FXML
     private void BtnCancelar_Action(ActionEvent evento) {
         compra = new Compra();
-        List <ItemCompra> itens = compra.getItensComprados();
-        ObservableList <ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
+        List<ItemCompra> itens = compra.getItensComprados();
+        ObservableList<ItemCompra> itenscompradosOb = FXCollections.observableArrayList(itens);
         LstItemCompra.setItems(itenscompradosOb);
 
         habilitarInterface(false);
@@ -122,15 +123,14 @@ public class CompraController implements Initializable {
     }
 
     private void atualizarLista() {
-        List <Tenis> tenis;
-        List <Fornecedor> fornecedores;
+        List<Tenis> tenis = new ArrayList<>();
+        List<Fornecedor> fornecedores = new ArrayList<>();
 
         try {
             fornecedores = fornecedorDao.listar();
             tenis = produtoDao.listar();
         } catch (Exception e) {
-            tenis = new ArrayList<>();
-            fornecedores = new ArrayList<>();
+            e.printStackTrace();
         }
 
         ObservableList<Tenis> tenisOb = FXCollections.observableArrayList(tenis);

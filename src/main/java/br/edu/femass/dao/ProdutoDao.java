@@ -14,18 +14,17 @@ import java.util.List;
 public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
     @Override
     public List<Tenis> listar() throws Exception {
-        String sql = "select * from produto order by id";
+        String sql = "select * from produto order by nome";
         PreparedStatement ps = getPreparedStatement(sql, false);
         ResultSet rs = ps.executeQuery();
 
         List<Tenis> tenis = new ArrayList<>();
-
         while (rs.next()) {
-            Tenis tenis = new Tenis();
-            tenis.setNome(rs.getString("nome"));
-            tenis.setId(rs.getLong("id"));
-            tenis.setEstoque(rs.getInt("estoque"));
-            tenis.add(tenis);
+            Tenis t = new Tenis();
+            t.setNome(rs.getString("nome"));
+            t.setId(rs.getLong("id"));
+            t.setEstoque(rs.getInt("estoque"));
+            tenis.add(t);
         }
         return tenis;
     }
@@ -51,8 +50,10 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
         String sql = "UPDATE produto set nome = ? where id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
         ps.setString(1, value.getNome());
-        ps.setFloat(2, value.getPrecoVenda());
-        ps.setInt(3, value.getEstoque());
+        ps.setLong(2, value.getId());
+     //   ps.setFloat(2, value.getPrecoVenda());
+     //   ps.setInt(3, value.getEstoque());
+
         ps.executeUpdate();
     }
 
@@ -60,7 +61,7 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
         String sql = "UPDATE produto SET estoque = ?, preco_venda = ? WHERE id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
         Integer conta = value.getTenis().getEstoque() - value.getQtd();
-        ps.setInt(1,  conta);
+        ps.setInt(1, conta);
         ps.setFloat(2, value.getPrecoVenda());
         ps.setLong(3, value.getTenis().getId());
         ps.executeUpdate();
@@ -69,7 +70,7 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
     public void alterarProdutoCompra(ItemCompra value) throws Exception {
         String sql = "UPDATE produto SET estoque = ? WHERE id = ?";
         PreparedStatement ps = getPreparedStatement(sql, false);
-        ps.setInt(1,  (value.getTenis().getEstoque() + value.getQtd()));
+        ps.setInt(1,  value.getTenis().getEstoque() + value.getQtd());
         ps.setLong(2, value.getTenis().getId());
         ps.executeUpdate();
     }

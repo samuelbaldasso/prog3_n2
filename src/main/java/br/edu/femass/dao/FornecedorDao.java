@@ -12,7 +12,7 @@ import java.util.List;
 public class FornecedorDao extends DaoPostgres implements Dao<Fornecedor>{
     @Override
     public List<Fornecedor> listar() throws Exception {
-        String sql = "SELECT * FROM fornecedor ORDER BY nome";
+        String sql = "SELECT * FROM fornecedor ORDER BY id";
         PreparedStatement ps = getPreparedStatement(sql, false);
         ResultSet rs = ps.executeQuery();
 

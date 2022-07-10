@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendaDao extends DaoPostgres implements Dao<Venda>{
+public class VendaDao extends DaoPostgres implements Dao<Venda> {
     private final ProdutoDao produtoDao = new ProdutoDao();
+
     @Override
     public List<Venda> listar() throws Exception {
-        String sql = "select * from venda order by data desc" ;
+        String sql = "select * from venda order by data desc";
         PreparedStatement ps = getPreparedStatement(sql, true);
         ResultSet rs = ps.executeQuery();
 
@@ -29,7 +30,7 @@ public class VendaDao extends DaoPostgres implements Dao<Venda>{
         return vendas;
     }
 
-    public Float consultarValor (String data) throws Exception {
+    public Float consultarValor(String data) throws Exception {
         String sql = "SELECT * FROM venda WHERE data = '" + data + "'";
         PreparedStatement ps = getPreparedStatement(sql, true);
         ResultSet rs = ps.executeQuery();
@@ -42,6 +43,7 @@ public class VendaDao extends DaoPostgres implements Dao<Venda>{
 
         return totalVendido;
     }
+
     @Override
     public void gravar(Venda value) throws Exception {
         Connection conexao = getConexao();
@@ -62,7 +64,7 @@ public class VendaDao extends DaoPostgres implements Dao<Venda>{
             value.setId(rs.getLong(1));
 
 
-            for (ItemVenda itemVendido: value.getItensVendidos()) {
+            for (ItemVenda itemVendido : value.getItensVendidos()) {
                 sql = "INSERT INTO item_venda (qtd, preco_venda, id_venda, id_produto) VALUES (?,?,?,?)";
                 PreparedStatement ps2 = getPreparedStatement(sql, true);
                 ps2.setInt(1, itemVendido.getQtd());
@@ -74,8 +76,10 @@ public class VendaDao extends DaoPostgres implements Dao<Venda>{
 
                 produtoDao.alterarProdutoVenda(itemVendido);
 
-                if(itemVendido.equals(value.getItensVendidos().get(value.getItensVendidos().size()))){conexao.commit();}
+                if (itemVendido.equals(value.getItensVendidos().size())) {
+                    conexao.commit();
                 }
+            }
 
         } catch (SQLException exception) {
             conexao.rollback();
