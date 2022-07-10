@@ -113,37 +113,39 @@ public class FornecedorController implements Initializable {
     }
     @FXML
     private void BtnGravar_Action(ActionEvent evento) throws Exception {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setNome(TxtNome.getText());
-        fornecedor.setCnpj(TxtCnpj.getText());
+        if(!TxtNome.getText().isEmpty() && !TxtCnpj.getText().isEmpty()){
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setNome(TxtNome.getText());
+            fornecedor.setCnpj(TxtCnpj.getText());
 
-        if (Objects.equals(BtnGravar.getText(), "Gravar")) {
-            try {
-                fornecedorDao.gravar(fornecedor);
-            } catch (Exception e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.show();
-                return;
+            if (Objects.equals(BtnGravar.getText(), "Gravar")) {
+                try {
+                    fornecedorDao.gravar(fornecedor);
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.show();
+                    return;
+                }
             }
-        }
-        else {
-            try {
-                fornecedor.setId(LstFornecedores.getSelectionModel().getSelectedItem().getId());
-                fornecedor.setNome(TxtNome.getText());
-                fornecedor.setCnpj(TxtCnpj.getText());
-                fornecedorDao.alterar(fornecedor);
-            } catch (Exception e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.show();
-                return;
+            else {
+                try {
+                    fornecedor.setId(LstFornecedores.getSelectionModel().getSelectedItem().getId());
+                    fornecedor.setNome(TxtNome.getText());
+                    fornecedor.setCnpj(TxtCnpj.getText());
+                    fornecedorDao.alterar(fornecedor);
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.show();
+                    return;
+                }
+
             }
 
+            atualizarLista();
+            habilitarInterface(false);
         }
-
-        atualizarLista();
-        habilitarInterface(false);
     }
 
     @FXML

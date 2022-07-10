@@ -67,7 +67,7 @@ public class ProdutoController implements Initializable {
         Tenis tenis = LstProdutos.getSelectionModel().getSelectedItem();
         if (tenis ==null) return;
         TxtNome.setText(tenis.getNome());
-        TxtEstoque.setText(String.valueOf(tenis.estoque));
+        TxtEstoque.setText(String.valueOf(tenis.getEstoque()));
         TxtId.setText(String.valueOf(tenis.getId()));
     }
 
@@ -115,37 +115,37 @@ public class ProdutoController implements Initializable {
     }
     @FXML
     private void BtnGravar_Action(ActionEvent evento) throws Exception {
-        Tenis tenis = new Tenis();
-        tenis.setNome(TxtNome.getText());
+        if (!TxtNome.getText().isEmpty()) {
+            Tenis tenis = new Tenis();
+            tenis.setNome(TxtNome.getText());
 
-        if (Objects.equals(BtnGravar.getText(), "Gravar")) {
-            try {
-                produtoDao.gravar(tenis);
-            } catch (Exception e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.show();
-                return;
+            if (Objects.equals(BtnGravar.getText(), "Gravar")) {
+                try {
+                    produtoDao.gravar(tenis);
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.show();
+                    return;
+                }
+            } else {
+                try {
+                    tenis.setId(LstProdutos.getSelectionModel().getSelectedItem().getId());
+                    tenis.setNome(TxtNome.getText());
+                    produtoDao.alterar(tenis);
+                } catch (Exception e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setContentText(e.getMessage());
+                    errorAlert.show();
+                    return;
+                }
+
             }
-        }
-        else {
-            try {
-                tenis.setId(LstProdutos.getSelectionModel().getSelectedItem().getId());
-                tenis.setNome(TxtNome.getText());
-                produtoDao.alterar(tenis);
-            } catch (Exception e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.show();
-                return;
-            }
 
+            atualizarLista();
+            habilitarInterface(false);
         }
-
-        atualizarLista();
-        habilitarInterface(false);
     }
-
     @FXML
     private void BtnCancelar_Action(ActionEvent evento) {
         habilitarInterface(false);

@@ -39,7 +39,6 @@ public class VendaDao extends DaoPostgres implements Dao<Venda> {
 
         while (rs.next()) {
             totalVendido = totalVendido + rs.getFloat("valor_total");
-
         }
 
         return totalVendido;
@@ -64,19 +63,26 @@ public class VendaDao extends DaoPostgres implements Dao<Venda> {
             rs.next();
             value.setId(rs.getLong(1));
 
-
             for (ItemVenda itemVendido : value.getItensVendidos()) {
-                sql = "INSERT INTO item_venda (qtd, preco_venda, id_venda, id_produto) VALUES (?,?,?,?)";
-                PreparedStatement ps2 = getPreparedStatement(sql, true);
-                ps2.setInt(1, itemVendido.getQtd());
-                ps2.setFloat(2, itemVendido.getPrecoVenda());
-                ps2.setLong(3, value.getId());
-                ps2.setLong(4, itemVendido.getTenis().getId());
+                sql = "select estoque from produto where id = ?";
+                PreparedStatement ps2 = getPreparedStatement(sql, false);
+                ps2.setLong(1, itemVendido.getTenis().getId());
 
-                ps2.executeUpdate();
+                ResultSet aux = ps2.executeQuery();
+                while(aux.next()) {
+                    itemVendido.getTenis().setEstoque(aux.getInt("estoque"));
+                }
+
+                sql = "INSERT INTO item_venda (qtd, preco_venda, id_venda, id_produto) VALUES (?,?,?,?)";
+                PreparedStatement ps3 = getPreparedStatement(sql, true);
+                ps3.setInt(1, itemVendido.getQtd());
+                ps3.setFloat(2, itemVendido.getPrecoVenda());
+                ps3.setLong(3, value.getId());
+                ps3.setLong(4, itemVendido.getTenis().getId());
+                ps3.executeUpdate();
 
                 produtoDao.alterarProdutoVenda(itemVendido);
-                Tenis.estoque = Tenis.estoque - itemVendido.getQtd();
+
                 if (itemVendido.equals(value.getItensVendidos().size())) {
                     conexao.commit();
                 }

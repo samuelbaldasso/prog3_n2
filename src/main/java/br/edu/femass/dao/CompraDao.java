@@ -50,69 +50,79 @@ public class CompraDao extends DaoPostgres implements Dao<Compra> {
     }
 
     public Float consultarValor(String data) throws Exception {
+        Float totalComprado = 0F;
         String sql = "SELECT * FROM compra WHERE data = '" + data + "'";
-
         PreparedStatement ps = getPreparedStatement(sql, true);
         ResultSet rs = ps.executeQuery();
-
-        Float totalComprado = 0F;
-
-        while (rs.next()) {
-            totalComprado = totalComprado + rs.getFloat("valor_total");
+        try {
+            while (rs.next()) {
+                totalComprado = totalComprado + rs.getFloat("valor_total");
+            }
+        } catch (Exception e) {
 
         }
 
-        System.out.println(totalComprado + rs.getFloat("valor_total"));
         return totalComprado;
     }
 
     @Override
     public void gravar(Compra value) throws Exception {
+
         Connection conexao = getConexao();
         conexao.setAutoCommit(false);
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-            try {
-                String sql = "INSERT INTO compra (data, valor_total, id_fornecedor) VALUES (?,?,?)";
-                PreparedStatement ps = getPreparedStatement(sql, true);
-                ps.setDate(1, Date.valueOf(date));
-                ps.setFloat(2, value.getValorTotal());
-                ps.setLong(3, value.getFornecedor().getId());
 
-                ps.executeUpdate();
+        String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+        try {
+            String sql = "INSERT INTO compra (data, valor_total, id_fornecedor) VALUES (?,?,?)";
+            PreparedStatement ps = getPreparedStatement(sql, true);
+            ps.setDate(1, Date.valueOf(date));
+            ps.setFloat(2, value.getValorTotal());
+            ps.setLong(3, value.getFornecedor().getId());
 
-                ResultSet rs = ps.getGeneratedKeys();
-                rs.next();
-                value.setId(rs.getLong(1));
+            ps.executeUpdate();
 
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            value.setId(rs.getLong(1));
 
-                for (ItemCompra itemComprado : value.getItensComprados()) {
-                    sql = "INSERT INTO item_compra (qtd, preco_compra, id_compra, id_produto) VALUES (?,?,?,?)";
-                    PreparedStatement ps2 = getPreparedStatement(sql, true);
-                    ps2.setInt(1, itemComprado.getQtd());
-                    ps2.setFloat(2, itemComprado.getPrecoCompra());
-                    ps2.setLong(3, value.getId());
-                    ps2.setLong(4, itemComprado.getTenis().getId());
-                    ps2.executeUpdate();
+            for (ItemCompra itemComprado : value.getItensComprados()) {
+                sql = "select estoque from produto where id = ?";
+                PreparedStatement ps2 = getPreparedStatement(sql, false);
+                ps2.setLong(1, itemComprado.getTenis().getId());
 
-                    produtoDao.alterarProdutoCompra(itemComprado);
-                    Tenis.estoque = Tenis.estoque + itemComprado.getQtd();
-                    if (itemComprado.equals(value.getItensComprados().size())) {
-                        conexao.commit();
-                    }
+                ResultSet aux = ps2.executeQuery();
+                while (aux.next()) {
+                    itemComprado.getTenis().setEstoque(aux.getInt("estoque"));
                 }
-            } catch (SQLException exception) {
-                conexao.rollback();
-                throw exception;
+
+                sql = "INSERT INTO item_compra (qtd, preco_compra, id_compra, id_produto) VALUES (?,?,?,?)";
+                PreparedStatement ps3 = getPreparedStatement(sql, true);
+                ps3.setInt(1, itemComprado.getQtd());
+                ps3.setFloat(2, itemComprado.getPrecoCompra());
+                ps3.setLong(3, value.getId());
+                ps3.setLong(4, itemComprado.getTenis().getId());
+                ps3.executeUpdate();
+
+
+                produtoDao.alterarProdutoCompra(itemComprado);
+
+                if (itemComprado.equals(value.getItensComprados().size())) {
+                    conexao.commit();
+                }
             }
-        }
-
-        @Override
-        public void alterar (Compra value) throws Exception {
-            //Este conjunto de dados não possui alteração
-        }
-
-        @Override
-        public void excluir (Compra value) throws Exception {
-            //Este conjunto de dados não possui exclusão
+        } catch (SQLException exception) {
+            conexao.rollback();
+            throw exception;
         }
     }
+
+    @Override
+    public void alterar(Compra value) throws Exception {
+        //Este conjunto de dados não possui alteração
+    }
+
+    @Override
+    public void excluir(Compra value) throws Exception {
+        //Este conjunto de dados não possui exclusão
+    }
+}

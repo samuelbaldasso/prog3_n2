@@ -50,6 +50,7 @@ public class ClienteController implements Initializable {
         TxtCpf.setText("");
         TxtNome.setText("");
     }
+
     private void habilitarInterface(Boolean incluir) {
         TxtNome.setDisable(!incluir);
         TxtCpf.setDisable(!incluir);
@@ -62,7 +63,7 @@ public class ClienteController implements Initializable {
 
     private void exibirCliente() {
         Cliente cliente = LstClientes.getSelectionModel().getSelectedItem();
-        if (cliente==null) return;
+        if (cliente == null) return;
         TxtNome.setText(cliente.getNome());
         TxtCpf.setText(cliente.getCpf());
     }
@@ -89,7 +90,7 @@ public class ClienteController implements Initializable {
     private void BtnExcluir_Action(ActionEvent evento) {
         Cliente cliente = LstClientes.getSelectionModel().getSelectedItem();
 
-        if (cliente==null) return;
+        if (cliente == null) return;
 
         try {
             clienteDao.excluir(cliente);
@@ -102,20 +103,23 @@ public class ClienteController implements Initializable {
     }
 
     @FXML
-    private void BtnAlterar_Action(ActionEvent evento){
+    private void BtnAlterar_Action(ActionEvent evento) {
         Cliente cliente = LstClientes.getSelectionModel().getSelectedItem();
 
-        if (cliente==null) return;
+        if (cliente == null) return;
         habilitarInterface(true);
         BtnGravar.setText("Alterar");
         TxtNome.requestFocus();
 
     }
+
     @FXML
     private void BtnGravar_Action(ActionEvent evento) throws Exception {
-        Cliente cliente = new Cliente();
-        cliente.setNome(TxtNome.getText());
-        cliente.setCpf(TxtCpf.getText());
+        if(!TxtNome.getText().isEmpty() && !TxtCpf.getText().isEmpty()){
+            Cliente cliente = new Cliente();
+            cliente.setNome(TxtNome.getText());
+            cliente.setCpf(TxtCpf.getText());
+
 
         if (Objects.equals(BtnGravar.getText(), "Gravar")) {
             try {
@@ -126,8 +130,7 @@ public class ClienteController implements Initializable {
                 errorAlert.show();
                 return;
             }
-        }
-        else {
+        } else {
             try {
                 cliente.setId(LstClientes.getSelectionModel().getSelectedItem().getId());
                 cliente.setNome(TxtNome.getText());
@@ -144,6 +147,7 @@ public class ClienteController implements Initializable {
 
         atualizarLista();
         habilitarInterface(false);
+        }
     }
 
     @FXML
@@ -165,5 +169,7 @@ public class ClienteController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {atualizarLista();}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        atualizarLista();
+    }
 }

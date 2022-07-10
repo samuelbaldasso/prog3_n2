@@ -91,7 +91,11 @@ public class CompraController implements Initializable {
         compra.setFornecedor(CboUsuario.getValue());
 
         try {
-            compraDao.gravar(compra);
+            if (CboUsuario.getValue() == null){
+                return;
+            }else {
+                compraDao.gravar(compra);
+            }
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setContentText(e.getMessage());
@@ -106,6 +110,7 @@ public class CompraController implements Initializable {
 
         atualizarLista();
         TxtTotal.setText("");
+        CboUsuario.setItems(null);
         habilitarInterface(false);
     }
 

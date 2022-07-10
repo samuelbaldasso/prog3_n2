@@ -23,7 +23,7 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
             Tenis t = new Tenis();
             t.setNome(rs.getString("nome"));
             t.setId(rs.getLong("id"));
-            Tenis.estoque = rs.getInt("estoque");
+            t.setEstoque(rs.getInt("estoque"));
             tenis.add(t);
         }
         return tenis;
@@ -31,20 +31,22 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
 
     @Override
     public void gravar(Tenis value) throws Exception {
-        String sql = "INSERT INTO produto (nome, preco_venda, estoque) VALUES (?,?,?)";
-        PreparedStatement ps = getPreparedStatement(sql, true);
-        ps.setString(1, value.getNome());
-        ps.setFloat(2, value.getPrecoVenda());
-        ps.setInt(3, value.estoque);
+        try {
+            String sql = "INSERT INTO produto (nome, preco_venda, estoque) VALUES (?,?,?)";
+            PreparedStatement ps = getPreparedStatement(sql, true);
+            ps.setString(1, value.getNome());
+            ps.setFloat(2, value.getPrecoVenda());
+            ps.setInt(3, value.getEstoque());
 
-        ps.executeUpdate();
+            ps.executeUpdate();
 
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        value.setId(rs.getLong(1));
-
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            value.setId(rs.getLong(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     @Override
     public void alterar(Tenis value) throws Exception {
         String sql = "UPDATE produto set nome = ? where id = ?";
@@ -58,19 +60,23 @@ public class ProdutoDao extends DaoPostgres implements Dao<Tenis>{
     }
 
     public void alterarProdutoVenda(ItemVenda value) throws Exception {
-        String sql = "UPDATE produto SET estoque = ?, preco_venda = ? WHERE id = ?";
-        PreparedStatement ps = getPreparedStatement(sql, false);
-        ps.setInt(1, Tenis.estoque - value.getQtd());
-        ps.setFloat(2, value.getPrecoVenda());
-        ps.setLong(3, value.getTenis().getId());
-        ps.executeUpdate();
+        try{
+            String sql = "UPDATE produto SET estoque = ?, preco_venda = ? WHERE id = ?";
+            PreparedStatement ps = getPreparedStatement(sql, false);
+            ps.setInt(1, value.getTenis().getEstoque() - value.getQtd());
+            ps.setFloat(2, value.getPrecoVenda());
+            ps.setLong(3, value.getTenis().getId());
+            ps.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void alterarProdutoCompra(ItemCompra value) {
         try{
             String sql = "UPDATE produto SET estoque = ? WHERE id = ?";
             PreparedStatement ps = getPreparedStatement(sql, false);
-            ps.setInt(1,  Tenis.estoque + value.getQtd());
+            ps.setInt(1,  value.getTenis().getEstoque() + value.getQtd());
             ps.setLong(2, value.getTenis().getId());
             ps.executeUpdate();
 

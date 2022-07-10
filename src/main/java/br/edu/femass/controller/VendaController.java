@@ -94,7 +94,11 @@ public class VendaController implements Initializable {
         venda.setCliente(CboUsuario.getValue());
 
         try{
-            vendaDao.gravar(venda);
+            if(CboUsuario.getValue() == null){
+                return;
+            }else {
+                vendaDao.gravar(venda);
+            }
         } catch (Exception e) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setContentText(e.getMessage());
@@ -109,6 +113,7 @@ public class VendaController implements Initializable {
 
         atualizarLista();
         TxtTotal.setText("");
+        CboUsuario.setItems(null);
         habilitarInterface(false);
 
     }
