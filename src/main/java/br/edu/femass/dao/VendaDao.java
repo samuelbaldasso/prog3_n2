@@ -2,6 +2,7 @@ package br.edu.femass.dao;
 
 
 import br.edu.femass.model.ItemVenda;
+import br.edu.femass.model.Tenis;
 import br.edu.femass.model.Venda;
 
 import java.sql.*;
@@ -75,7 +76,7 @@ public class VendaDao extends DaoPostgres implements Dao<Venda> {
                 ps2.executeUpdate();
 
                 produtoDao.alterarProdutoVenda(itemVendido);
-
+                Tenis.estoque = Tenis.estoque - itemVendido.getQtd();
                 if (itemVendido.equals(value.getItensVendidos().size())) {
                     conexao.commit();
                 }

@@ -70,50 +70,49 @@ public class CompraDao extends DaoPostgres implements Dao<Compra> {
     public void gravar(Compra value) throws Exception {
         Connection conexao = getConexao();
         conexao.setAutoCommit(false);
+            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+            try {
+                String sql = "INSERT INTO compra (data, valor_total, id_fornecedor) VALUES (?,?,?)";
+                PreparedStatement ps = getPreparedStatement(sql, true);
+                ps.setDate(1, Date.valueOf(date));
+                ps.setFloat(2, value.getValorTotal());
+                ps.setLong(3, value.getFornecedor().getId());
 
-        String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-        try {
-            String sql = "INSERT INTO compra (data, valor_total, id_fornecedor) VALUES (?,?,?)";
-            PreparedStatement ps = getPreparedStatement(sql, true);
-            ps.setDate(1, Date.valueOf(date));
-            ps.setFloat(2, value.getValorTotal());
-            ps.setLong(3, value.getFornecedor().getId());
+                ps.executeUpdate();
 
-            ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                value.setId(rs.getLong(1));
 
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            value.setId(rs.getLong(1));
 
-            for (ItemCompra itemComprado : value.getItensComprados()) {
-                sql = "INSERT INTO item_compra (qtd, preco_compra, id_compra, id_produto) VALUES (?,?,?,?)";
-                PreparedStatement ps2 = getPreparedStatement(sql, true);
-                ps2.setInt(1, itemComprado.getQtd());
-                ps2.setFloat(2, itemComprado.getPrecoCompra());
-                ps2.setLong(3, value.getId());
-                ps2.setLong(4, itemComprado.getTenis().getId());
+                for (ItemCompra itemComprado : value.getItensComprados()) {
+                    sql = "INSERT INTO item_compra (qtd, preco_compra, id_compra, id_produto) VALUES (?,?,?,?)";
+                    PreparedStatement ps2 = getPreparedStatement(sql, true);
+                    ps2.setInt(1, itemComprado.getQtd());
+                    ps2.setFloat(2, itemComprado.getPrecoCompra());
+                    ps2.setLong(3, value.getId());
+                    ps2.setLong(4, itemComprado.getTenis().getId());
+                    ps2.executeUpdate();
 
-                ps2.executeUpdate();
-
-                produtoDao.alterarProdutoCompra(itemComprado);
-
-                if (itemComprado.equals(value.getItensComprados().size())) {
-                    conexao.commit();
+                    produtoDao.alterarProdutoCompra(itemComprado);
+                    Tenis.estoque = Tenis.estoque + itemComprado.getQtd();
+                    if (itemComprado.equals(value.getItensComprados().size())) {
+                        conexao.commit();
+                    }
                 }
+            } catch (SQLException exception) {
+                conexao.rollback();
+                throw exception;
             }
-        } catch (SQLException exception) {
-            conexao.rollback();
-            throw exception;
+        }
+
+        @Override
+        public void alterar (Compra value) throws Exception {
+            //Este conjunto de dados não possui alteração
+        }
+
+        @Override
+        public void excluir (Compra value) throws Exception {
+            //Este conjunto de dados não possui exclusão
         }
     }
-
-    @Override
-    public void alterar(Compra value) throws Exception {
-        //Este conjunto de dados não possui alteração
-    }
-
-    @Override
-    public void excluir(Compra value) throws Exception {
-        //Este conjunto de dados não possui exclusão
-    }
-}

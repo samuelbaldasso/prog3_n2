@@ -69,7 +69,6 @@ public class CompraController implements Initializable {
     private void BtnIncluir_Action(ActionEvent evento) {
         ItemCompra itemCompra = new ItemCompra();
         itemCompra.setTenis(CboProduto.getValue());
-        compra.setFornecedor(CboUsuario.getValue());
         itemCompra.setQtd(Integer.parseInt(TxtQtd.getText()));
         itemCompra.setPrecoCompra(Float.parseFloat(TxtValor.getText()));
 
@@ -108,7 +107,6 @@ public class CompraController implements Initializable {
         atualizarLista();
         TxtTotal.setText("");
         habilitarInterface(false);
-
     }
 
     @FXML

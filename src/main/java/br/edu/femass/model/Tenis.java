@@ -8,13 +8,13 @@ public class Tenis {
     private Long id;
     private String nome;
     private Float precoVenda = 0F;
-    private int estoque = 0;
+    public static int estoque = 0;
 
     @Override
-    public String toString(){return this.getNome() + ", estoque: " + this.getEstoque();}
+    public String toString(){return this.getNome() + ", estoque: " + this.estoque;}
 
     public Boolean checkEstoque (Integer value) {
-        return this.getEstoque() >= value;
+        return this.estoque >= value;
     }
 
     public Boolean checkPreco (Float value) {

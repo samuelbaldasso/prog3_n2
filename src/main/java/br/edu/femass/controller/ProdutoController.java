@@ -67,7 +67,7 @@ public class ProdutoController implements Initializable {
         Tenis tenis = LstProdutos.getSelectionModel().getSelectedItem();
         if (tenis ==null) return;
         TxtNome.setText(tenis.getNome());
-        TxtEstoque.setText(String.valueOf(tenis.getEstoque()));
+        TxtEstoque.setText(String.valueOf(tenis.estoque));
         TxtId.setText(String.valueOf(tenis.getId()));
     }
 
