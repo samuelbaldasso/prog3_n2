@@ -17,7 +17,6 @@ public class Caixa {
 
 
     public void fecharCaixa(String data){
-
         Operacao opCompra = new Operacao();
         opCompra.setTipo(TipoOperacao.COMPRA);
         Operacao opVenda = new Operacao();
@@ -36,10 +35,10 @@ public class Caixa {
 
         for (Operacao op : operacoes) {
             if(op.getTipo() == TipoOperacao.VENDA){
-                this.total = this.total - op.getValor();
+                this.total = this.total + op.getValor();
             }
             else{
-                this.total = this.total + op.getValor();
+                this.total = this.total - op.getValor();
             }
         }
     }
